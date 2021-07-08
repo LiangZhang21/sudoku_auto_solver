@@ -1,4 +1,5 @@
 import pygame
+from .constants import *
 from sudoku.board import Board
 
 class Game:
@@ -18,12 +19,21 @@ class Game:
     def reset(self):
         self._init()
 
-    def select(self, row, col):
+    def select(self, row, col, win):
         if self.selected:
-            block = self.board.get_block(row, col)
+            clicked_block = self.board.get_block(row, col)
+
+            #if user select a different block
+            if not self.selected == clicked_block: 
+                setattr(self.board[row][col], 'color', WHITE)
+                self.selected = None
+                self.select(row, col, win)  
 
         else:
-             block = self.board.get_block(row, col)
-             self.selected = block
-             return True
+            clicked_block = self.board.get_block(row, col)
+            self.selected = clicked_block
+            setattr(self.board[row][col], 'color', GREY)
+
+            print(str(self.selected.row) + " " + str(self.selected.col))
+            return True
         return False

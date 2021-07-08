@@ -40,11 +40,16 @@ class Board:
         for row in range(ROWS):
             self.board.append([])
             for col in range(COLS): 
-                self.board[row].append(Block(row, col, 0))
+                self.board[row].append(Block(row, col, WHITE, 0))
+
+    def draw_block(self, row, col, color, win):
+        pygame.draw.rect(win, color, (self.board[row][col].x + 5, self.board[row][col].y + 5, SQUARE_SIZE - 10, SQUARE_SIZE - 10))    
     
     def draw(self, win):
         self.draw_squares(win)
         for row in range(ROWS):
             for col in range(COLS):
-                block = self.board[row][col]
-                block.draw(win)
+                if getattr(self.board[row][col], 'color') == WHITE:
+                    self.draw_block(row, col, WHITE, win)
+                else:
+                    self.draw_block(row, col, GREY, win)
