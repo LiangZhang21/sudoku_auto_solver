@@ -53,3 +53,5 @@ class Board:
                     self.draw_block(row, col, WHITE, win)
                 else:
                     self.draw_block(row, col, GREY, win)
+    def __getitem__(self, win):
+            return f"Value {win}"
