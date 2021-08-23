@@ -25,14 +25,14 @@ class Game:
 
             #if user select a different block
             if not self.selected == clicked_block: 
-                setattr(self.board[row][col], 'color', WHITE)
+                setattr(self.board.get_block(row, col), 'color', WHITE)
                 self.selected = None
                 self.select(row, col, win)  
 
         else:
             clicked_block = self.board.get_block(row, col)
             self.selected = clicked_block
-            setattr(self.board[row][col], 'color', GREY)
+            setattr(self.board.get_block(row, col), 'color', GREY)
 
             print(str(self.selected.row) + " " + str(self.selected.col))
             return True
