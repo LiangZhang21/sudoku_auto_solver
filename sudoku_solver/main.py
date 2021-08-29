@@ -18,9 +18,11 @@ def get_row_col_from_mouse(pos):
     return row, col
 
 def main():
+    pygame.init()
     run = True
     clock = pygame.time.Clock()
     game = Game(WIN)
+    selected_box = None
 
     while run:
         clock.tick(FPS)
@@ -32,7 +34,17 @@ def main():
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 game.select(row, col, game.win)
-    
+                selected_box = game.board.get_block(row, col)
+            if event.type == pygame.KEYDOWN:
+                row = selected_box.row
+                col = selected_box.col
+                if (selected_box.select):
+                    if (event.key == 48): #checking if the key is 0
+                        game.board.get_block(row, col).num = event.key - 48       
+                    if (0 < event.key - 48 < 10): #checking for valid input
+                        game.board.get_block(row, col).num = event.key - 48
+                        #print(str(game.board.get_block(row, col).num))   
+                        
         game.update()
 
     pygame.quit()
