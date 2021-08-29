@@ -34,9 +34,6 @@ class Board:
                 pygame.draw.line(win, BLACK, (col*SQUARE_SIZE, 0),
                                  (col*SQUARE_SIZE, 9*SQUARE_SIZE), 4)
 
-    def num_input(self, block, num):
-        self.board[block.row][block.col].num = num
-
     def get_block(self, row, col):
         return self.board[row][col]
 
@@ -51,11 +48,24 @@ class Board:
             win, color, (self.board[row][col].x + 5, self.board[row][col].y + 5, SQUARE_SIZE - 10, SQUARE_SIZE - 10))
 
     def draw_num(self, row, col, num, win):
-        value = self.myfont.render(str(num), True, (0, 0, 0))
+        value = self.myfont.render(str(num), True, BLACK)
         win.blit(value, (col * SQUARE_SIZE + 40, row * SQUARE_SIZE + 40))
+    
+    def draw_text(self, win):
+        text = "Press Enter to Solve"
+        value = self.myfont.render(str(text), True, WHITE)
+        win.blit(value, (10, 810))
+
+    #if example failed or no solution
+    def draw_fail(self, success, win):
+        if not success:
+            text = "No solution"
+            value = self.myfont.render(str(text), True, RED)
+            win.blit(value, (300, 810))
 
     def draw(self, win):
         self.draw_squares(win)
+        self.draw_text(win)
         for row in range(ROWS):
             for col in range(COLS):
                 if getattr(self.board[row][col], 'color') == WHITE:

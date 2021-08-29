@@ -1,7 +1,7 @@
 import pygame
 from sudoku.game import Game
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 800, 850
 ROWS, COLS = 9, 9
 SQUARE_SIZE = WIDTH//COLS
 
@@ -34,8 +34,9 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
-                game.select(row, col, game.win)
-                selected_box = game.board.get_block(row, col)
+                if(row < 9):
+                    game.select(row, col, game.win)
+                    selected_box = game.board.get_block(row, col)
             if event.type == pygame.KEYDOWN:
                 if(selected_box != None):
                     row = selected_box.row
@@ -46,6 +47,10 @@ def main():
                         if (0 < event.key - 48 < 10):  # checking for valid input
                             game.board.get_block(row, col).num = event.key - 48
                             #print(str(game.board.get_block(row, col).num))
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN: #checking if key press is Enter 
+                    pass
+            
 
         game.update()
 
