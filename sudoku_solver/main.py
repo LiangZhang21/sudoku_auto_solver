@@ -11,11 +11,13 @@ FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Sudoku Solver')
 
+
 def get_row_col_from_mouse(pos):
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
+
 
 def main():
     pygame.init()
@@ -26,7 +28,6 @@ def main():
 
     while run:
         clock.tick(FPS)
-        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -36,15 +37,16 @@ def main():
                 game.select(row, col, game.win)
                 selected_box = game.board.get_block(row, col)
             if event.type == pygame.KEYDOWN:
-                row = selected_box.row
-                col = selected_box.col
-                if (selected_box.select):
-                    if (event.key == 48): #checking if the key is 0
-                        game.board.get_block(row, col).num = event.key - 48       
-                    if (0 < event.key - 48 < 10): #checking for valid input
-                        game.board.get_block(row, col).num = event.key - 48
-                        #print(str(game.board.get_block(row, col).num))   
-                        
+                if(selected_box != None):
+                    row = selected_box.row
+                    col = selected_box.col
+                    if (selected_box.select):
+                        if (event.key == 48):  # checking if the key is 0
+                            game.board.get_block(row, col).num = event.key - 48
+                        if (0 < event.key - 48 < 10):  # checking for valid input
+                            game.board.get_block(row, col).num = event.key - 48
+                            #print(str(game.board.get_block(row, col).num))
+
         game.update()
 
     pygame.quit()

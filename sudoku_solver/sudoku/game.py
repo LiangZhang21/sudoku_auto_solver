@@ -2,6 +2,7 @@ import pygame
 from .constants import *
 from sudoku.board import Board
 
+
 class Game:
     def __init__(self, win):
         self._init()
@@ -24,12 +25,13 @@ class Game:
         if self.selected:
             clicked_block = self.board.get_block(row, col)
 
-            #if user select a different block
-            if not (self.selected == clicked_block): 
-                setattr(self.board.get_block(self.pre_selected.row, self.pre_selected.col), 'color', WHITE)
+            # if user select a different block
+            if not (self.selected == clicked_block):
+                setattr(self.board.get_block(self.pre_selected.row,
+                                             self.pre_selected.col), 'color', WHITE)
                 self.selected = None
-                self.pre_selected.select = False   
-                self.select(row, col, win)          
+                self.pre_selected.select = False
+                self.select(row, col, win)
 
         else:
             clicked_block = self.board.get_block(row, col)
