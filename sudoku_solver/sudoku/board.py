@@ -8,6 +8,7 @@ class Board:
         self.board = []
         self.grid = []
         self.successful = False
+        self.no_solution = False
         self.selected_block = None
         self.create_board()
         self.myfont = pygame.font.SysFont("comicsansms", 15)
@@ -77,6 +78,7 @@ class Board:
                     self.draw_num(row, col, self.board[row][col].num, win)
                 if self.successful:
                     self.draw_num(row, col, self.grid[row][col], win)
+        self.draw_fail(not self.no_solution, win)
 
     def __getitem__(self, win):
         return f"Value {win}"
@@ -89,8 +91,10 @@ class Board:
         if solve_sudoku(self.grid):
             #trigger succesful on draw
             self.successful = True
+            self.no_solution = False
             print("sucessful")
         else:
             #trigger fail on draw
             self.successful = False
+            self.no_solution = True
             print("failed")                                 
