@@ -49,7 +49,7 @@ def main():
                             #print(str(game.board.get_block(row, col).num))
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN: #checking if key press is Enter 
-                    pass
+                    game.board.sudoku_solver()
             
 
         game.update()

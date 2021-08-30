@@ -1,7 +1,7 @@
 import pygame
 from .constants import *
 from sudoku.board import Board
-
+from sudoku_backtracking import *
 
 class Game:
     def __init__(self, win):
@@ -42,3 +42,5 @@ class Game:
             #print(str(self.selected.row) + " " + str(self.selected.col))
             return True
         return False
+
+

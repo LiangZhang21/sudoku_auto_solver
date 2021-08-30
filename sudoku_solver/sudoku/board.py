@@ -1,12 +1,13 @@
 import pygame
 from .constants import *
 from .block import Block
-
+from sudoku_backtracking import *
 
 class Board:
     def __init__(self):
         self.board = []
-        self.subblocks = []
+        self.grid = []
+        self.successful = False
         self.selected_block = None
         self.create_board()
         self.myfont = pygame.font.SysFont("comicsansms", 15)
@@ -74,6 +75,22 @@ class Board:
                     self.draw_block(row, col, GREY, win)
                 if self.board[row][col].num != 0:
                     self.draw_num(row, col, self.board[row][col].num, win)
+                if self.successful:
+                    self.draw_num(row, col, self.grid[row][col], win)
 
     def __getitem__(self, win):
         return f"Value {win}"
+
+    def sudoku_solver(self):
+        for row in range(ROWS):
+            self.grid.append([])
+            for col in range(COLS):
+                self.grid[row].append(self.board[row][col].num)
+        if solve_sudoku(self.grid):
+            #trigger succesful on draw
+            self.successful = True
+            print("sucessful")
+        else:
+            #trigger fail on draw
+            self.successful = False
+            print("failed")                                 
